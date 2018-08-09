@@ -6,4 +6,6 @@
 
     <color name="lightBackground">#db6b62</color>
     <color name="darkBackground">#2a3745</color>
+
+    <color name="fabIcon">#db6b62</color>
 </resources>
