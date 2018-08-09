@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#db6b62</color>
+    <color name="colorPrimaryDark">#01000000</color>
+    <color name="colorAccent">#f0ad5f</color>
+
+    <color name="lightBackground">#db6b62</color>
+    <color name="darkBackground">#2a3745</color>
+
+    <color name="fabIcon">#db6b62</color>
 </resources>
