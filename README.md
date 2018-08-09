@@ -1,5 +1,7 @@
 # Daftcode Recruitment Task - Flat Timer App 
 
+<img src="/screenshots/1.png" width="300">
+
 ## Requirements:
 - [X] Set the timer for 1-12 seconds (inclusive) with a drag gesture
 - [X] Start the timer
