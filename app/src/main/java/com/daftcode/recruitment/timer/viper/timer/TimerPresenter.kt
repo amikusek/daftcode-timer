@@ -1,6 +1,5 @@
 package com.daftcode.recruitment.timer.viper.timer
 
-import com.daftcode.recruitment.timer.view.state._base.TimerState
 import com.daftcode.recruitment.timer.extension.reportToServer
 import com.daftcode.recruitment.timer.extension.retrySubscribe
 import com.daftcode.recruitment.timer.view.state.RunningTimerState
@@ -23,15 +22,32 @@ class TimerPresenter :
                         ?.retrySubscribe(
                                 onNext = {
                                     view?.timerState?.let {
-                                        if (it is StoppedTimerState)
+                                        if (it is StoppedTimerState) {
                                             view?.timerState = it.start()
-                                        else if (it is RunningTimerState)
+                                            view?.startTimer()
+                                        } else if (it is RunningTimerState) {
                                             view?.timerState = it.stop()
-
+                                            view?.cancelTimer()
+                                            view?.setTimerToPreviousState()
+                                        }
                                         view?.renderState(view!!.timerState)
                                     }
                                 },
                                 onError = { it.reportToServer() }))
+        addSubscription(
+                view
+                        ?.onTimerFinishEvents
+                        ?.retrySubscribe(
+                                onNext = {
+                                    view?.let {
+                                        view?.timerState = (it.timerState as RunningTimerState).stop()
+                                        view?.renderState(view!!.timerState)
+                                        it.cancelTimer()
+                                        it.setTimerToPreviousState()
+                                    }
+                                },
+                                onError = { it.reportToServer() }
+                        ))
     }
 
     override fun createRouting() = TimerRouting()
