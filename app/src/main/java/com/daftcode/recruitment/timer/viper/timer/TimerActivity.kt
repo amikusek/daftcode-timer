@@ -9,6 +9,7 @@ import com.daftcode.recruitment.timer.constants.BACKGROUND_TRANSITION_DURATION_I
 import com.daftcode.recruitment.timer.constants.FLASH_ANIMATION_DURATION_IN_MILLIS
 import com.daftcode.recruitment.timer.constants.TIMER_DEFAULT_TIME_IN_MILLIS
 import com.daftcode.recruitment.timer.extension.*
+import com.daftcode.recruitment.timer.view.state.RunningTimerState
 import com.daftcode.recruitment.timer.view.state._base.TimerState
 import com.daftcode.recruitment.timer.view.state.StoppedTimerState
 import com.daftcode.recruitment.timer.viper.timer.util.Timer
@@ -47,6 +48,17 @@ class TimerActivity : ViperAiPassiveActivity<TimerContract.View>(), TimerContrac
                 .apply {
                     duration = BACKGROUND_TRANSITION_DURATION_IN_MILLIS
                 }.start()
+    }
+
+    override fun onStop() {
+        if (timerState is RunningTimerState) {
+            timerState = (timerState as RunningTimerState).stop()
+            timer.cancel()
+            renderState(timerState)
+            setTimerToPreviousState()
+            timerView.isTimerRunning = false
+        }
+        super.onStop()
     }
 
     override fun startTimer() {
