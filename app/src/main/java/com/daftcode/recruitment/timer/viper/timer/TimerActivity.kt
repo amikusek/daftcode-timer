@@ -2,8 +2,11 @@ package com.daftcode.recruitment.timer.viper.timer
 
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import com.daftcode.recruitment.timer.R
 import com.daftcode.recruitment.timer.constants.BACKGROUND_TRANSITION_DURATION_IN_MILLIS
+import com.daftcode.recruitment.timer.constants.FLASH_ANIMATION_DURATION_IN_MILLIS
 import com.daftcode.recruitment.timer.constants.TIMER_DEFAULT_TIME_IN_MILLIS
 import com.daftcode.recruitment.timer.extension.*
 import com.daftcode.recruitment.timer.view.state._base.TimerState
@@ -60,6 +63,8 @@ class TimerActivity : ViperAiPassiveActivity<TimerContract.View>(), TimerContrac
         timerView.setProgress(timerTimeInMillis)
         timeTv.text = timerTimeInMillis.getFormattedTimeFromMillis()
     }
+
+    override fun makeFlashAnimation() = flashView.makeFlashAnimation()
 
     private fun subscribeToTimerTickEvents() {
         onTimerTickEvents.retrySubscribe(

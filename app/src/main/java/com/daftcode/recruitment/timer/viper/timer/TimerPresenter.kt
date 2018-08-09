@@ -40,9 +40,10 @@ class TimerPresenter :
                         ?.retrySubscribe(
                                 onNext = {
                                     view?.let {
+                                        it.cancelTimer()
                                         view?.timerState = (it.timerState as RunningTimerState).stop()
                                         view?.renderState(view!!.timerState)
-                                        it.cancelTimer()
+                                        view?.makeFlashAnimation()
                                         it.setTimerToPreviousState()
                                     }
                                 },

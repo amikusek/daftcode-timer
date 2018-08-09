@@ -20,6 +20,7 @@ interface TimerContract {
         fun startTimer()
         fun cancelTimer()
         fun setTimerToPreviousState()
+        fun makeFlashAnimation()
     }
 
     interface Interactor : ViperRxInteractor
